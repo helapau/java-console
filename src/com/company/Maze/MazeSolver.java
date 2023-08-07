@@ -1,4 +1,4 @@
-package com.company;
+package com.company.Maze;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.function.Function;
 
-import static com.company.Maze.*;
+import static com.company.Maze.Maze.*;
 
 public class MazeSolver {
 

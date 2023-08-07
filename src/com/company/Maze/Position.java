@@ -1,4 +1,4 @@
-package com.company;
+package com.company.Maze;
 
 public class Position {
     public final int rowIndex;
