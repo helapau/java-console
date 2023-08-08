@@ -7,6 +7,7 @@ public class LinkedList<T> {
     class Node<T> {
         T data;
         Node next;
+        Node previous;
 
         public Node(T data, Node next) {
             this.data = data;
@@ -39,6 +40,20 @@ public class LinkedList<T> {
         size = 0;
     }
 
+    @Override
+    public String toString() {
+        Node node = this.head;
+        StringBuilder s = new StringBuilder();
+        while (node != null) {
+            s.append(""+ node.data);
+            if (node.hasNext()) {
+                s.append(" <-> ");
+            }
+            node = node.next;
+        }
+        return s.toString();
+    }
+
     public boolean isEmpty() {
         return head == null;
     }
@@ -60,6 +75,7 @@ public class LinkedList<T> {
                 currentNode = currentNode.next;
             }
             currentNode.next = newNode;
+            newNode.previous = currentNode;
         }
         this.size++;
     }
@@ -78,6 +94,7 @@ public class LinkedList<T> {
 
         Node newNode = new Node(data, current.next);
         current.next = newNode;
+        newNode.previous = current;
         size++;
     }
 
@@ -85,6 +102,7 @@ public class LinkedList<T> {
         if (isEmpty()) return;
         Node newHead = this.head.next;
         this.head = newHead;
+        this.head.previous = null;
         size--;
     }
 
@@ -92,18 +110,20 @@ public class LinkedList<T> {
         if (isEmpty()) return;
 
         Node currentNode = this.head;
-        Node previousNode = null;
         while (currentNode.hasNext()) {
             if (currentNode.data.equals(data)) {
                 break;
             }
-            previousNode = currentNode;
-            currentNode = previousNode.next;
+            currentNode = currentNode.next;
         }
-        if (previousNode == null) {
+
+        if (currentNode.previous == null) {
             deleteHead();
         } else {
-            previousNode.next = currentNode.next;
+            currentNode.previous.next = currentNode.next;
+            if (currentNode.hasNext()) {
+                currentNode.next.previous = currentNode.previous;
+            }
             size--;
         }
     }

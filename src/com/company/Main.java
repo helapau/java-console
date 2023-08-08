@@ -15,8 +15,9 @@ public class Main {
         list.insertAtEnd(2);
         list.insertAtEnd(1);
         list.insertAtEnd(0);
-        list.deleteByValue(1);
 
-        System.out.println();
+        list.deleteByValue(0);
+
+        System.out.println(list.toString());
     }
 }
