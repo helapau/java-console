@@ -3,21 +3,32 @@ package com.company;
 
 import com.company.ds.LinkedList;
 
+
+import java.util.*;
+
 public class Main {
 
 
 
 
-
     public static void main(String[] args) {
-        LinkedList<Integer> list = new LinkedList<>();
-        list.insertAtHead(3);
-        list.insertAtEnd(2);
-        list.insertAtEnd(1);
-        list.insertAtEnd(0);
+    LinkedList<Integer> list1 = new LinkedList<>();
+    list1.insertAtEnd(15);
+    list1.insertAtEnd(22);
+    list1.insertAtEnd(8);
+    list1.insertAtEnd(22);
 
-        list.deleteByValue(0);
 
-        System.out.println(list.toString());
+    System.out.println(list1.nthNodeFromEnd(4));
+
+
+
+
+
+
+
+
+
+
     }
 }
