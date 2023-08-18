@@ -1,17 +1,18 @@
 package com.company.ds;
 
-public class Stack<E> {
-
+public class Queue<E> {
+    private int front;
+    private int back;
     private E[] arr;
     private int capacity;
-    private int size;
-    private int top;
+    public int size;
 
-    public Stack() {
-        capacity = 2;
-        size = 0;
+    public Queue() {
+        capacity = 3;
         arr = (E[]) new Object[capacity];
-        top = -1;
+        size = 0;
+        front = -1;
+        back = -1;
     }
 
     public boolean isEmpty() {
@@ -19,7 +20,7 @@ public class Stack<E> {
     }
 
     public E getTop() {
-        return arr[top];
+        return arr[front];
     }
 
     private void increaseCapacity() {
@@ -31,23 +32,28 @@ public class Stack<E> {
         this.arr = newArray;
     }
 
-    public void push(E e) {
+    // insert e at the back
+    public void enqueue(E e) {
         if (size == capacity) {
             increaseCapacity();
         }
 
-        arr[top + 1] = e;
-        top += 1;
+        arr[back + 1] = e;
+        back += 1;
+        if (isEmpty()) {
+            front = back;
+        }
         size += 1;
     }
 
-    public E pop() {
+    // remove e from the front
+    public E dequeue() {
         if (isEmpty()) {
             return null;
         }
-        top -= 1;
-        E e = arr[top + 1];
-        arr[top + 1] = null;
+        E e = arr[front];
+        arr[front] = null;
+        front += 1;
         size -= 1;
         return e;
     }
