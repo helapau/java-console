@@ -2,6 +2,8 @@ package com.company;
 
 
 import com.company.ds.LinkedList;
+import com.company.ds.Queue;
+import com.company.ds.Stack;
 
 
 import java.util.*;
@@ -12,14 +14,20 @@ public class Main {
 
 
     public static void main(String[] args) {
-    LinkedList<Integer> list1 = new LinkedList<>();
-    list1.insertAtEnd(15);
-    list1.insertAtEnd(22);
-    list1.insertAtEnd(8);
-    list1.insertAtEnd(22);
+        Queue<Character> q = new Queue<>();
+        q.enqueue('A');
+        q.dequeue();
+        q.enqueue('b');
+        q.enqueue('c');
+        q.enqueue('d');
+        q.enqueue('Z');
+        System.out.println(q.dequeue());
+        System.out.println(q.dequeue());
+        System.out.println(q.dequeue());
+        System.out.println(q.dequeue());
+        q.enqueue('1');
+        System.out.println();
 
-
-    System.out.println(list1.nthNodeFromEnd(4));
 
 
 
