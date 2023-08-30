@@ -6,6 +6,7 @@ public class Queue<E> {
     private E[] arr;
     int front;
     int back;
+    private int size;
 
     public Queue() {
         capacity = 4;
@@ -19,6 +20,10 @@ public class Queue<E> {
         capacity = capacity;
     }
 
+    public int getCurrentSize() {
+        return size;
+    }
+
     public void enqueue(E e) {
         if (isFull()) {
             increaseCapacity();
@@ -28,6 +33,7 @@ public class Queue<E> {
             front++;
         }
         back++;
+        size++;
     }
 
     public E dequeue() {
@@ -41,8 +47,8 @@ public class Queue<E> {
             front = -1;
             back = -1;
         }
+        size--;
         return e;
-
     }
 
     public boolean isEmpty() {

@@ -18,4 +18,30 @@ public class Challenges {
 
         return  result;
     }
+
+    public static <V> void reverseK(Queue<V> queue, int k) {
+        if (queue.isEmpty() || k <= 0) return;
+        
+        int size = queue.getCurrentSize();
+        V[] toReverese = (V[]) new Object[k];
+        V[] toCopy = (V[]) new Object[size - k];
+
+        for (int i = 0; i < k; i++) {
+            V e = queue.dequeue();
+            toReverese[i] = e;
+        }
+        for (int i = 0; i < toCopy.length; i++) {
+            V e = queue.dequeue();
+            toCopy[i] = e;
+        }
+
+        for (int i = k - 1; i >= 0; i--) {
+            queue.enqueue(toReverese[i]);
+        }
+
+        for (int i = 0; i < toCopy.length; i++) {
+            queue.enqueue(toCopy[i]);
+        }
+
+    }
 }
