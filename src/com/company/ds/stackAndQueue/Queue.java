@@ -1,4 +1,4 @@
-package com.company.ds;
+package com.company.ds.stackAndQueue;
 
 public class Queue<E> {
 
@@ -12,6 +12,11 @@ public class Queue<E> {
         arr = (E[]) new Object[capacity];
         front = -1;
         back = -1;
+    }
+
+    public Queue(int capacity) {
+        this();
+        capacity = capacity;
     }
 
     public void enqueue(E e) {
