@@ -14,11 +14,30 @@ public class Stack<E> {
         top = -1;
     }
 
+    public Stack(int maxSize) {
+        capacity = maxSize;
+        size = 0;
+        arr = (E[]) new Object[capacity];
+        top = -1;
+
+    }
+
+    public int getCurrentSize() {
+        return size;
+    }
+
     public boolean isEmpty() {
         return size == 0;
     }
 
-    public E getTop() {
+    public boolean isFull() {
+        return size == capacity;
+    }
+
+    public E top() {
+        if (isEmpty()) {
+            return null;
+        }
         return arr[top];
     }
 
@@ -32,7 +51,7 @@ public class Stack<E> {
     }
 
     public void push(E e) {
-        if (size == capacity) {
+        if (isFull()) {
             increaseCapacity();
         }
 
