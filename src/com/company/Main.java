@@ -13,28 +13,9 @@ public class Main {
 
 
     public static void main(String[] args) {
-        Stack<Integer> s = new Stack<>();
-        // 12, 13, 14, 10
-        // -25, -35, -49, -1
-        s.push(10);
-        s.push(-49);
-        s.push(-35);
-        s.push(-25);
+        int[] arr = {4, 6, 3, 2, 8, 1, 2};
+        int[] res = Challenges.nextGreaterElement2(arr);
 
-        Challenges.sortStack(s);
-        while (!s.isEmpty()) {
-            System.out.println(s.pop());
-        }
-
-
-
-
-
-
-
-
-
-
-
+        System.out.println();
     }
 }

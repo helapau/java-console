@@ -154,4 +154,96 @@ public class Challenges {
             stack.push(sorted.pop());
         }
     }
+
+    /**
+     * only single-digit numbers
+     * 1028*+3- -> 13
+     * 921*-8-4+ -> 3
+     * 642/+ -> 8
+     * @param expression
+     * @return
+     */
+    public static Integer evaluatePostFix(String expression) {
+        char[] expressionArr = expression.toCharArray();
+        Stack<Integer> stNums = new Stack<>();
+        for (char c : expressionArr) {
+            if (Character.isDigit(c)) {
+                stNums.push(Integer.valueOf(""+c));
+            } else {
+                Integer right = stNums.pop();
+                Integer left = stNums.pop();
+                switch (c) {
+                    case '*':
+                        stNums.push(left * right);
+                        break;
+                    case '+':
+                        stNums.push(left + right);
+                        break;
+                    case '-':
+                        stNums.push(left - right);
+                        break;
+                    case '/':
+                        stNums.push(left / right);
+                        break;
+                }
+            }
+        }
+        return stNums.pop();
+    }
+
+    public static int[] nextGreaterElement(int[] arr) {
+        int[] result = new int[arr.length];
+        Stack<Integer> subArr = new Stack(arr.length - 1);
+        for (int i = arr.length - 1; i > 0; i--) {
+            subArr.push(arr[i]);
+        }
+        Stack<Integer> temp = new Stack(arr.length);
+        for (int i = 0; i < arr.length - 1; i++) {
+            boolean found = false;
+            Integer next = subArr.pop();
+            if (arr[i] < next) {
+                result[i] = next;
+                found = true;
+            } else {
+                while (!subArr.isEmpty()) {
+                    temp.push(subArr.pop());
+                    if (arr[i] < temp.top()) {
+                        result[i] = temp.top();
+                        found = true;
+                        break;
+                    }
+                }
+                while (!temp.isEmpty()) {
+                    subArr.push(temp.pop());
+                }
+            }
+            if (!found) {
+                result[i] = -1;
+            }
+        }
+        result[result.length - 1] = -1;
+        return result;
+    }
+
+    public static int[] nextGreaterElement2(int[] arr) {
+        // improved space and time complexity -> avoid initial fill of stack, using temp stack and pushing back
+        Stack<Integer> stack = new Stack(arr.length);
+        int[] result = new int[arr.length];
+        for (int i = arr.length - 1; i >= 0; i--) {
+            if (!stack.isEmpty()) {
+                while (!stack.isEmpty() && stack.top() <= arr[i]) {
+                    stack.pop();
+                }
+            }
+
+            if (stack.isEmpty()) {
+                result[i] = -1;
+            } else {
+                result[i] = stack.top();
+            }
+
+            stack.push(arr[i]);
+        }
+        return result;
+    }
 }
