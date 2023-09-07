@@ -246,4 +246,72 @@ public class Challenges {
         }
         return result;
     }
+
+    // check for balanced paranthesis using a stack
+    public static boolean isBalanced(String exp) {
+        Stack<Character> leftP = new Stack<>(exp.length());
+
+        for (int i = 0; i < exp.length(); i++) {
+            char c = exp.charAt(i);
+            if (c == '{' || c == '[' || c == '(') {
+                leftP.push(c);
+            } else {
+                char opening = leftP.pop();
+                boolean isMatch = true;
+                switch (c) {
+                    case '}':
+                        isMatch = opening == '{';
+                        break;
+                    case ']':
+                        isMatch = opening == '[';
+                        break;
+                    case ')':
+                        isMatch = opening == '(';
+                        break;
+                    default:
+                        break;
+                }
+                if (!isMatch) {
+                    return false;
+                }
+
+            }
+        }
+
+        return leftP.isEmpty();
+    }
+
+    public static class MinStack {
+        int maxSize;
+        Stack<Integer> mainSt;
+        Stack<Integer> minSt;
+
+        //constructor
+        public MinStack(int maxSize) {
+            this.maxSize = maxSize;
+            this.mainSt = new Stack<>(maxSize);
+            this.minSt = new Stack<>(maxSize);
+
+        }
+        //removes and returns value from stack
+        public Integer pop(){
+            minSt.pop();
+            return mainSt.pop();
+        }
+        //pushes value into the stack
+        public void push(Integer value){
+            mainSt.push(value);
+
+            if (!minSt.isEmpty() && minSt.top() < value) {
+                minSt.push(minSt.top());
+            } else {
+                minSt.push(value);
+            }
+        }
+        //returns minimum value in O(1)
+        public int min(){
+            if (minSt.isEmpty()) return -1;
+            return minSt.top();
+        }
+    }
 }

@@ -1,39 +1,55 @@
 package com.company.ds.stackAndQueue;
 
 public class Queue<E> {
-
-    private int capacity;
-    private E[] arr;
+    int maxSize;
+    int currentSize;
     int front;
     int back;
-    private int size;
+    E[] arr;
 
     public Queue() {
-        capacity = 4;
-        arr = (E[]) new Object[capacity];
+        maxSize = 4;
         front = -1;
         back = -1;
+        arr = (E[]) new Object[maxSize];
+        currentSize = 0;
     }
 
-    public Queue(int capacity) {
-        this();
-        capacity = capacity;
+    public Queue(int maxSize) {
+        this.maxSize = maxSize;
+        front = -1;
+        back = -1;
+        arr = (E[]) new Object[maxSize];
+        currentSize = 0;
     }
 
-    public int getCurrentSize() {
-        return size;
+    public boolean isFull() {
+        return (back + 1) % maxSize == front;
+    }
+
+    public boolean isEmpty() {
+        return back == front && back == -1;
+    }
+
+    private void increaseCapacity() {
+        maxSize *= 2;
+        E[] newArray = (E[]) new Object[maxSize];
+        for (int i = 0; i < arr.length; i++) {
+            newArray[i] = arr[i];
+        }
+        this.arr = newArray;
     }
 
     public void enqueue(E e) {
         if (isFull()) {
             increaseCapacity();
         }
-        arr[back + 1] = e;
         if (isEmpty()) {
-            front++;
+            front += 1;
         }
-        back++;
-        size++;
+        back = (back  + 1) % maxSize;
+        arr[back] = e;
+        currentSize++;
     }
 
     public E dequeue() {
@@ -42,35 +58,16 @@ public class Queue<E> {
         }
         E e = arr[front];
         arr[front] = null;
-        front++;
-        if (front == capacity || front > back) {
+        front = (front + 1) % maxSize;
+        if (front == 0 && back == 0) {
             front = -1;
             back = -1;
         }
-        size--;
+        currentSize--;
         return e;
     }
 
-    public boolean isEmpty() {
-        return front == back  && front == -1;
+    public int getCurrentSize() {
+        return currentSize;
     }
-
-    private boolean isFull() {
-        return back == arr.length - 1;
-    }
-
-    private void increaseCapacity() {
-        capacity *= 2;
-        E[] newArray = (E[]) new Object[capacity];
-        for (int i = 0; i < arr.length; i++) {
-            newArray[i] = arr[i];
-        }
-        this.arr = newArray;
-    }
-
-    public E top() {
-        return arr[front];
-    }
-
-
 }
