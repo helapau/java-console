@@ -8,8 +8,8 @@ import java.util.Set;
 public class LinkedList<T> {
 
     public static class Node<T> {
-        T data;
-        Node next;
+        public T data;
+        public Node next;
         Node previous;
 
         public Node(T data, Node next) {
@@ -30,7 +30,7 @@ public class LinkedList<T> {
             return Objects.hash(data, next);
         }
 
-        protected boolean hasNext() {
+        public boolean hasNext() {
             return this.next != null;
         }
 
@@ -42,7 +42,7 @@ public class LinkedList<T> {
         }
     }
 
-    Node head;
+    public Node head;
     Node tail;
     int size;
 
